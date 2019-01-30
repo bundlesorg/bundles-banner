@@ -9,8 +9,8 @@
     <!-- Travis branch. -->
     <a href="https://github.com/brikcss/bundles-banner/tree/master"><img alt="Travis branch" src="https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square&label=master"></a>
     <!-- Codacy. -->
-    <a href="https://www.codacy.com/app/thezimmee/bundles-core"><img alt="Codacy code grade" src="https://img.shields.io/codacy/grade/9b153e1a4e304f43bbb205cdb496ef6b/master.svg?style=flat-square"></a>
-    <a href="https://www.codacy.com/app/thezimmee/bundles-core"><img alt="Codacy coverage" src="https://img.shields.io/codacy/coverage/9b153e1a4e304f43bbb205cdb496ef6b/master.svg?style=flat-square"></a>
+    <a href="https://www.codacy.com/app/thezimmee/bundles-banner"><img alt="Codacy code grade" src="https://img.shields.io/codacy/grade/d73d51dfa99743149e364d721eb3aaad/master.svg?style=flat-square"></a>
+    <a href="https://www.codacy.com/app/thezimmee/bundles-banner"><img alt="Codacy coverage" src="https://img.shields.io/codacy/coverage/d73d51dfa99743149e364d721eb3aaad/master.svg?style=flat-square"></a>
     <!-- Coveralls -->
     <a href='https://coveralls.io/github/brikcss/bundles-banner?branch=master'><img src='https://img.shields.io/coveralls/github/brikcss/bundles-banner/master.svg?style=flat-square' alt='Coverage Status' /></a>
     <!-- JS Standard style. -->
@@ -37,8 +37,10 @@ This is a bundler plugin for use with [Bundles](https://github.com/brikcss/bundl
 
 ## Install
 
+Make sure [Bundles is installed](https://github.com/brikcss/bundles-core#install).
+
 ```sh
-npm install @bundles/core @bundles/bundles-banner -D
+npm install @bundles/bundles-banner -D
 ```
 
 ## Usage
