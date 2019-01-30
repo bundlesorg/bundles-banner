@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "npm run watch",
-    "test": "standard *.js && jest --coverage && cat coverage/lcov.info | coveralls && cat coverage/lcov.info | codacy-coverage",
+    "test": "standard *.js && jest --coverage && cat coverage/lcov.info | coveralls && cat coverage/lcov.info",
     "unit": "jest",
     "watch": "jest --watchAll"
   },
