@@ -33,7 +33,7 @@ This is a bundler plugin for use with [Bundles](https://github.com/brikcss/bundl
 
 | Node | CLI | ES Module | Browser | UMD |
 | :--: | :-: | :-------: | :-----: | :-: |
-|  ✓   |  ✓  |     x     |    x    |  x  |
+|  ✓   |  ✓  |     ✓     |    x    |  x  |
 
 ## Install
 
@@ -56,3 +56,16 @@ The following properties are available in `bundler.options`:
 - **`suffix`** _{String}_ (`' */'`) Banner suffix.
 - **`metadata`** _{String[]|Array[]}_ (`['author', 'reference']`) Metadata to add to banner. Each item in the Array can be either 1) the key name of a property from `file.data`, or 2) a key-value pair in an Array. Each piece of metadata will be parsed as follows: `@<key> <value>`.
 - **`joinWith`** _{String}_ (`' | '`) Character(s) to join `metadata` with.
+
+### Example
+
+```js
+const bundle = {
+    input: [...],
+    bundlers: [{
+        run: '@bundles/bundles-banner',
+        include: ['.js'],
+        joinWith: ' - '
+    }]
+}
+```

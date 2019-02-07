@@ -2,7 +2,6 @@
 
 module.exports = {
   linters: {
-    'lib/bundles-banner.js': ['npx node-minify --compressor uglify-es --input lib/bundles-banner.js --output lib/bundles-banner.min.js', 'git add lib/bundles-banner.min.js'],
     '*.js': ['standard --fix', 'git add'],
     '*.css': ['prettier --parser css --write', 'stylelint', 'git add'],
     '*.json': ['prettier --parser json --write', 'git add'],
@@ -13,5 +12,5 @@ module.exports = {
     matchBase: true,
     dot: true
   },
-  ignore: ['*.min.{js,css}']
+  ignore: ['lib', 'module']
 }

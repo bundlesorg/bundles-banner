@@ -1,8 +1,8 @@
 /*! bundles-banner.js | @author brikcss <https://github.com/brikcss> | @reference https://github.com/brikcss/bundles-banner */
 
-const path = require('path')
+import path from 'path'
 
-module.exports = (bundle = {}, bundler = {}) => {
+export default (bundle = {}, bundler = {}) => {
   // Set default options.
   bundler.options = Object.assign({
     include: ['.js', '.css'],
