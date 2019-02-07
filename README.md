@@ -49,13 +49,14 @@ See [configuring Bundles](https://github.com/brikcss/bundles-core#configuration)
 
 ### Configuration
 
-The following properties are available in `bundler.options`:
+The following properties are available in **`bundler.options`**:
 
-- **`include`** _{String[]|Function}_ (`['.js', '.css']`) Determines whether filepath should include a banner. If String Array matches the file extension, or if a Function returns `true`, a banner is added.
-- **`prefix`** _{String}_ (`'/*! '`) Banner prefix.
-- **`suffix`** _{String}_ (`' */'`) Banner suffix.
-- **`metadata`** _{String[]|Array[]}_ (`['author', 'reference']`) Metadata to add to banner. Each item in the Array can be either 1) the key name of a property from `file.data`, or 2) a key-value pair in an Array. Each piece of metadata will be parsed as follows: `@<key> <value>`.
-- **`joinWith`** _{String}_ (`' | '`) Character(s) to join `metadata` with.
+- `include` _{String[]|Function}_ (`['.js', '.css']`) Determines whether filepath should include a banner. If String Array matches the file extension, or if a Function returns `true`, a banner is added.
+- `prefix` _{String}_ (`'/*! '`) Banner prefix.
+- `suffix` _{String}_ (`' */'`) Banner suffix.
+- `metadata` _{String[]|Array[]|Function|Function[]}_ (`['author', 'reference']`) Metadata to add to banner. Each item in the Array represents a parameter name, and the value of the parameter. Each item can be a String, an Array where item[0] is the parameter's name and item[1] is the value, or a Function which returns a String or Array. See example below.
+- `joinWith` _{String}_ (`' | '`) Character(s) to join `metadata` with.
+- `paramNameChar` _{String}_ (`'@'`) Character(s) to prepend parameter name with.
 
 ### Example
 
@@ -65,7 +66,25 @@ const bundle = {
     bundlers: [{
         run: '@bundles/bundles-banner',
         include: ['.js'],
+        // Metadata can be String, Array, or Function.
+        metadata: ['author', ['my-param', 'This is my param.', (file) => {
+            if (file.data.myProp) return ['custom-param', 'Value is ' + file.data.myProp]
+            return false
+        }]],
         joinWith: ' - '
     }]
 }
+```
+
+Assuming the following data:
+
+```yaml
+author: Snoopy
+myProp: true
+```
+
+the above example will return:
+
+```js
+/*! @author Snoopy - @my-param This is my param. - @custom-param Value is true */
 ```

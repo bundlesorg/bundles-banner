@@ -1,6 +1,6 @@
 {
   "name": "@bundles/bundles-banner",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A bundler plugin for Bundles which adds a comment banner to a file's content.",
   "keywords": ["brikcss", "bundles", "bundler", "banner"],
   "license": "MIT",

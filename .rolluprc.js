@@ -14,7 +14,7 @@ const isProd = ['production', 'test'].includes(process.env.NODE_ENV)
 // Set base options.
 const base = {
   input: 'src/bundles-banner.js',
-  external: [...Object.keys(pkg.dependencies)],
+  external: [...Object.keys(pkg.dependencies), 'path'],
   watch: {
     chokidar: true,
     include: 'src/**',
