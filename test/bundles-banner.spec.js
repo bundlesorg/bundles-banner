@@ -8,7 +8,7 @@ log.setLevel('silent')
 
 test('prepend banner', () => {
   expect.assertions(3)
-  return bundle({
+  return bundle.run({
     bundles: [{
       id: 'simple',
       input: {
@@ -18,19 +18,22 @@ test('prepend banner', () => {
       bundlers: [banner]
     }]
   }).then(result => {
-    const output = result.bundles[0].output[0]
+    const output = result.bundles[0].output
     expect(result.success).toBe(true)
-    expect(output.data).toMatchObject({
-      author: 'Brikcss <https://github.com/brikcss>',
-      reference: '<https://github.com/brikcss/bundles-banner>'
+    expect(output.size).toBe(1)
+    expect(output.get('simple.js')).toMatchObject({
+      data: {
+        author: 'Brikcss <https://github.com/brikcss>',
+        reference: '<https://github.com/brikcss/bundles-banner>'
+      },
+      content: '/*! simple.js | @author Brikcss <https://github.com/brikcss> | @reference <https://github.com/brikcss/bundles-banner> */\n\n'
     })
-    expect(output.content).toBe('/*! simple.js | @author Brikcss <https://github.com/brikcss> | @reference <https://github.com/brikcss/bundles-banner> */\n\n')
   })
 })
 
 test('make sure data.metadata gets precedence', () => {
   expect.assertions(3)
-  return bundle({
+  return bundle.run({
     bundles: [{
       id: 'data.metadata',
       input: {
@@ -40,22 +43,25 @@ test('make sure data.metadata gets precedence', () => {
       bundlers: [banner]
     }]
   }).then(result => {
-    const output = result.bundles[0].output[0]
+    const output = result.bundles[0].output
     expect(result.success).toBe(true)
-    expect(output.data).toMatchObject({
-      author: 'Testing',
-      metadata: {
-        author: 'Brikcss <https://github.com/brikcss>',
-        reference: '<https://github.com/brikcss/bundles-banner>'
-      }
+    expect(output.size).toBe(1)
+    expect(output.get('metadata.js')).toMatchObject({
+      data: {
+        author: 'Testing',
+        metadata: {
+          author: 'Brikcss <https://github.com/brikcss>',
+          reference: '<https://github.com/brikcss/bundles-banner>'
+        }
+      },
+      content: '/*! metadata.js | @author Brikcss <https://github.com/brikcss> | @reference <https://github.com/brikcss/bundles-banner> */\n\n'
     })
-    expect(output.content).toBe('/*! metadata.js | @author Brikcss <https://github.com/brikcss> | @reference <https://github.com/brikcss/bundles-banner> */\n\n')
   })
 })
 
 test('metadata as a function', () => {
   expect.assertions(3)
-  return bundle({
+  return bundle.run({
     bundles: [{
       id: 'metadata.function',
       input: {
@@ -77,16 +83,19 @@ test('metadata as a function', () => {
     }],
     data: {}
   }).then(result => {
-    const output = result.bundles[0].output[0]
+    const output = result.bundles[0].output
     expect(result.success).toBe(true)
-    expect(output.data).toMatchObject({
-      author: 'Testing',
-      metadata: {
-        author: 'Brikcss <https://github.com/brikcss>',
-        reference: '<https://github.com/brikcss/bundles-banner>'
-      }
+    expect(output.size).toBe(1)
+    expect(output.get('function.js')).toMatchObject({
+      data: {
+        author: 'Testing',
+        metadata: {
+          author: 'Brikcss <https://github.com/brikcss>',
+          reference: '<https://github.com/brikcss/bundles-banner>'
+        }
+      },
+      content: '/*! function.js | @author Brikcss <https://github.com/brikcss> | @reference <https://github.com/brikcss/bundles-banner> | @my-test-param My test data. */\n\n'
     })
-    expect(output.content).toBe('/*! function.js | @author Brikcss <https://github.com/brikcss> | @reference <https://github.com/brikcss/bundles-banner> | @my-test-param My test data. */\n\n')
   })
 })
 
@@ -100,7 +109,7 @@ test('prepend banner with options', () => {
       joinWith: '\n * ',
       metadata: ['author', ['@something', 'It\'s really cool.'], 'reference']
     } }]
-  return bundle({
+  return bundle.run({
     bundles: [{
       id: 'options1',
       input: {
@@ -118,12 +127,18 @@ test('prepend banner with options', () => {
     }]
   }).then(result => {
     expect(result.success).toBe(true)
-    expect(result.bundles[0].output[0].data).toMatchObject({
-      author: 'Brikcss <https://github.com/brikcss>',
-      reference: '<https://github.com/brikcss/bundles-banner>'
+    expect(result.bundles[0].output.size).toBe(1)
+    expect(result.bundles[0].output.get('options1.js')).toMatchObject({
+      data: {
+        author: 'Brikcss <https://github.com/brikcss>',
+        reference: '<https://github.com/brikcss/bundles-banner>'
+      },
+      content: '/**\n * options1.js\n * @author Brikcss <https://github.com/brikcss>\n * @something It\'s really cool.\n * @reference <https://github.com/brikcss/bundles-banner>\n */\n\n'
     })
-    expect(result.bundles[0].output[0].content).toBe('/**\n * options1.js\n * @author Brikcss <https://github.com/brikcss>\n * @something It\'s really cool.\n * @reference <https://github.com/brikcss/bundles-banner>\n */\n\n')
-    expect(result.bundles[1].output[0].data).toMatchObject({})
-    expect(result.bundles[1].output[0].content).toBe('# Title\n\nHello world!\n')
+    expect(result.bundles[1].output.size).toBe(1)
+    expect(result.bundles[1].output.get('options2.md')).toMatchObject({
+      data: {},
+      content: '# Title\n\nHello world!\n'
+    })
   })
 })

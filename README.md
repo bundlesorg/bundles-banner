@@ -67,10 +67,10 @@ const bundle = {
         run: '@bundles/bundles-banner',
         include: ['.js'],
         // Metadata can be String, Array, or Function.
-        metadata: ['author', ['my-param', 'This is my param.', (file) => {
+        metadata: ['author', ['my-param', 'This is my param.'], (file) => {
             if (file.data.myProp) return ['custom-param', 'Value is ' + file.data.myProp]
             return false
-        }]],
+        }],
         joinWith: ' - '
     }]
 }
